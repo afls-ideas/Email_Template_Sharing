@@ -98,6 +98,17 @@ Group resolution queries `Group WHERE DeveloperName = :name AND Type = 'Regular'
 sf project deploy start --source-dir force-app --target-org <your-org-alias>
 ```
 
+### Grant Field-Level Security for `ShareWithGroupName__c`
+
+The deployment creates the custom field on `LifeSciEmailTemplate`, but does **not** grant FLS (field-level security) to any profile or permission set — every org's security model is different.
+
+After deploying, grant **Read** (and optionally **Edit**) access on `LifeSciEmailTemplate.ShareWithGroupName__c` to the profiles or permission sets used by admins who will populate the field:
+
+- **Via Permission Set** — Setup > Permission Sets > *your permission set* > Object Settings > Life Sciences Email Templates > Edit > enable `Share With Group Name`
+- **Via Profile** — Setup > Profiles > *your profile* > Object Settings > Life Sciences Email Templates > Edit > enable `Share With Group Name`
+
+Without this step the field will not be visible or editable, and the trigger will have no effect.
+
 ### Configure
 
 1. **Create a Public Group** (Setup > Users > Public Groups) with the users who should receive template access.
