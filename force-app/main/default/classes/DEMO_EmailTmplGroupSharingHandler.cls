@@ -111,17 +111,17 @@ public with sharing class DEMO_EmailTmplGroupSharingHandler {
     }
 
     /**
-     * Resolves Public Group names to their IDs.
-     * Returns a Map of group name (case-sensitive) -> Group Id.
+     * Resolves Public Group developer names to their IDs.
+     * Returns a Map of DeveloperName -> Group Id.
      * Only matches groups with Type = 'Regular' (Public Groups).
      */
     private Map<String, Id> resolveGroupNames(Set<String> groupNames) {
         Map<String, Id> nameToId = new Map<String, Id>();
         for (Group g : [
-            SELECT Id, Name FROM Group
-            WHERE Name IN :groupNames AND Type = 'Regular'
+            SELECT Id, DeveloperName FROM Group
+            WHERE DeveloperName IN :groupNames AND Type = 'Regular'
         ]) {
-            nameToId.put(g.Name, g.Id);
+            nameToId.put(g.DeveloperName, g.Id);
         }
         return nameToId;
     }

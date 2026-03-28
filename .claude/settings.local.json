@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__search__search",
+      "mcp__codesearch__search",
+      "mcp__aisuite__python",
+      "Bash(mv Email_Template_Sharing/sfdx-project.json Email_Template_Sharing/package.json Email_Template_Sharing/jest.config.js Email_Template_Sharing/eslint.config.js .)",
+      "Bash(mv Email_Template_Sharing/force-app .)",
+      "Bash(mv Email_Template_Sharing/config .)",
+      "Bash(mv Email_Template_Sharing/scripts .)",
+      "Bash(mv Email_Template_Sharing/README.md .)"
+    ]
+  }
+}

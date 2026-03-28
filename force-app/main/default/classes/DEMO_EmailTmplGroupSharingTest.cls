@@ -4,8 +4,8 @@ private class DEMO_EmailTmplGroupSharingTest {
     /**
      * Helper: create a public group for testing.
      */
-    private static Group createPublicGroup(String name) {
-        Group g = new Group(Name = name, Type = 'Regular');
+    private static Group createPublicGroup(String name, String devName) {
+        Group g = new Group(Name = name, DeveloperName = devName, Type = 'Regular');
         insert g;
         return g;
     }
@@ -54,10 +54,10 @@ private class DEMO_EmailTmplGroupSharingTest {
      */
     @IsTest
     static void testInsertWithGroup_createsTemplateShare() {
-        Group publicGroup = createPublicGroup('Test Email Group');
+        Group publicGroup = createPublicGroup('Test Email Group', 'Test_Email_Group');
 
         Test.startTest();
-        LifeSciEmailTemplate tmpl = createTemplate('Test Template', 'Test Email Group');
+        LifeSciEmailTemplate tmpl = createTemplate('Test Template', 'Test_Email_Group');
         insert tmpl;
         Test.stopTest();
 
@@ -99,10 +99,10 @@ private class DEMO_EmailTmplGroupSharingTest {
      */
     @IsTest
     static void testUpdateGroup_replacesShares() {
-        Group groupA = createPublicGroup('Group A');
-        Group groupB = createPublicGroup('Group B');
+        Group groupA = createPublicGroup('Group A', 'Group_A');
+        Group groupB = createPublicGroup('Group B', 'Group_B');
 
-        LifeSciEmailTemplate tmpl = createTemplate('Update Test', 'Group A');
+        LifeSciEmailTemplate tmpl = createTemplate('Update Test', 'Group_A');
         insert tmpl;
 
         // Verify initial share
@@ -113,9 +113,9 @@ private class DEMO_EmailTmplGroupSharingTest {
         System.assertEquals(1, sharesA.size());
         System.assertEquals(groupA.Id, sharesA[0].UserOrGroupId);
 
-        // Change group name
+        // Change group developer name
         Test.startTest();
-        tmpl.ShareWithGroupName__c = 'Group B';
+        tmpl.ShareWithGroupName__c = 'Group_B';
         update tmpl;
         Test.stopTest();
 
@@ -132,9 +132,9 @@ private class DEMO_EmailTmplGroupSharingTest {
      */
     @IsTest
     static void testClearGroup_removesShares() {
-        Group publicGroup = createPublicGroup('Clear Test Group');
+        Group publicGroup = createPublicGroup('Clear Test Group', 'Clear_Test_Group');
 
-        LifeSciEmailTemplate tmpl = createTemplate('Clear Test', 'Clear Test Group');
+        LifeSciEmailTemplate tmpl = createTemplate('Clear Test', 'Clear_Test_Group');
         insert tmpl;
 
         Test.startTest();
@@ -155,7 +155,7 @@ private class DEMO_EmailTmplGroupSharingTest {
      */
     @IsTest
     static void testFragmentSharing() {
-        Group publicGroup = createPublicGroup('Fragment Test Group');
+        Group publicGroup = createPublicGroup('Fragment Test Group', 'Fragment_Test_Group');
 
         // Create template without group first so we can add a fragment
         LifeSciEmailTemplate tmpl = createTemplate('Fragment Test', null);
@@ -163,9 +163,9 @@ private class DEMO_EmailTmplGroupSharingTest {
 
         LifeSciEmailTmplFragment frag = createFragmentForTemplate(tmpl.Id);
 
-        // Now set the group name to trigger sharing
+        // Now set the group developer name to trigger sharing
         Test.startTest();
-        tmpl.ShareWithGroupName__c = 'Fragment Test Group';
+        tmpl.ShareWithGroupName__c = 'Fragment_Test_Group';
         update tmpl;
         Test.stopTest();
 
@@ -191,15 +191,15 @@ private class DEMO_EmailTmplGroupSharingTest {
      */
     @IsTest
     static void testDeleteTemplate_removesFragmentShares() {
-        Group publicGroup = createPublicGroup('Delete Test Group');
+        Group publicGroup = createPublicGroup('Delete Test Group', 'Delete_Test_Group');
 
         LifeSciEmailTemplate tmpl = createTemplate('Delete Test', null);
         insert tmpl;
 
         LifeSciEmailTmplFragment frag = createFragmentForTemplate(tmpl.Id);
 
-        // Set group name to create shares
-        tmpl.ShareWithGroupName__c = 'Delete Test Group';
+        // Set group developer name to create shares
+        tmpl.ShareWithGroupName__c = 'Delete_Test_Group';
         update tmpl;
 
         // Confirm fragment share exists before delete
@@ -228,7 +228,7 @@ private class DEMO_EmailTmplGroupSharingTest {
     @IsTest
     static void testInsertWithInvalidGroupName_noShare() {
         Test.startTest();
-        LifeSciEmailTemplate tmpl = createTemplate('Bad Group Test', 'Nonexistent Group XYZ');
+        LifeSciEmailTemplate tmpl = createTemplate('Bad Group Test', 'Nonexistent_Group_XYZ');
         insert tmpl;
         Test.stopTest();
 
