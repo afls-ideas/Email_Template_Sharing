@@ -12,16 +12,42 @@ A custom field (`ShareWithGroupName__c`) on `LifeSciEmailTemplate` holds a **Pub
 
 ### Data Model
 
-```
-LifeSciEmailTemplate (OWD: Private)
-  ├── ShareWithGroupName__c       -- custom Text(255) field holding a Public Group DeveloperName
-  ├── LifeSciEmailTemplateShare   -- share object (RowCause = 'Manual', AccessLevel = 'Read')
-  │
-  ├── LifeSciEmailTmplRelaFrgmt   -- junction (ControlledByParent, auto-inherits access)
-  │     └── LifeSciEmailTmplFragment (OWD: Private)
-  │           └── LifeSciEmailTmplFragmentShare  -- share object (RowCause = 'Manual')
-  │
-  └── LifeSciEmailTmplSnapshot    -- child (ControlledByParent, auto-inherits access)
+```mermaid
+erDiagram
+    LifeSciEmailTemplate ||--o{ LifeSciEmailTemplateShare : "share object"
+    LifeSciEmailTemplate ||--o{ LifeSciEmailTmplRelaFrgmt : "ControlledByParent"
+    LifeSciEmailTemplate ||--o{ LifeSciEmailTmplSnapshot : "ControlledByParent"
+    LifeSciEmailTmplRelaFrgmt }o--|| LifeSciEmailTmplFragment : "junction"
+    LifeSciEmailTmplFragment ||--o{ LifeSciEmailTmplFragmentShare : "share object"
+    LifeSciEmailTmplSnapshot ||--o{ ContentDocumentLink : "ShareType = Inferred"
+    ContentDocumentLink }o--|| ContentDocument : "linked content"
+
+    LifeSciEmailTemplate {
+        text ShareWithGroupName__c "Public Group DeveloperName"
+        picklist OWD "Private"
+    }
+    LifeSciEmailTemplateShare {
+        string RowCause "Manual"
+        string AccessLevel "Read"
+        reference UserOrGroupId "Public Group Id"
+    }
+    LifeSciEmailTmplFragment {
+        picklist OWD "Private"
+    }
+    LifeSciEmailTmplFragmentShare {
+        string RowCause "Manual"
+        string AccessLevel "Read"
+        reference UserOrGroupId "Public Group Id"
+    }
+    LifeSciEmailTmplRelaFrgmt {
+        picklist OWD "ControlledByParent"
+    }
+    LifeSciEmailTmplSnapshot {
+        picklist OWD "ControlledByParent"
+    }
+    ContentDocument {
+        string Title "index.html / Archive.zip / thumbnail.jpg"
+    }
 ```
 
 **Objects that need explicit sharing (OWD = Private):**
