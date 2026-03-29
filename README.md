@@ -94,7 +94,7 @@ Group resolution queries `Group WHERE DeveloperName = :name AND Type = 'Regular'
 
 ### Deploy
 
-<a href="https://githubsfdeploy.herokuapp.com?owner=afls-ideas&repo=Email_Template_Sharing">
+<a href="https://githubsfdeploy.herokuapp.com?owner=afls-ideas&repo=Email_Template_Sharing&ref=main">
   <img alt="Deploy to Salesforce" src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
 </a>
 
