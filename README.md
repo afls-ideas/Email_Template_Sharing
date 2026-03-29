@@ -94,6 +94,12 @@ Group resolution queries `Group WHERE DeveloperName = :name AND Type = 'Regular'
 
 ### Deploy
 
+<a href="https://githubsfdeploy.herokuapp.com?owner=afls-ideas&repo=Email_Template_Sharing">
+  <img alt="Deploy to Salesforce" src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
+</a>
+
+Or deploy manually via CLI:
+
 ```bash
 sf project deploy start --source-dir force-app --target-org <your-org-alias>
 ```
