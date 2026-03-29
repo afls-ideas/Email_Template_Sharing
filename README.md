@@ -148,3 +148,7 @@ This trigger creates shares with `RowCause = 'Manual'`. LSC's built-in territory
 - **Single group per template** — the field holds one DeveloperName. To share with multiple groups, extend the solution to use a related list or multi-value field.
 - **DeveloperName must be exact** — the value must match the group's DeveloperName precisely. Unlike labels, DeveloperNames cannot be changed after creation, so this is stable.
 - **Fragment share cleanup on delete** — removes all Manual-cause fragment shares for affected fragments. If the same fragment is shared via multiple templates to different groups, clearing one template's group may remove shares needed by another. For production use, consider reference-counting fragment shares.
+
+## Disclaimer
+
+This project is provided **AS IS** with no warranty or guarantee of any kind, express or implied. It is intended as a reference implementation and starting point — not a production-ready solution. You are solely responsible for testing, validating, and adapting this code to your org's requirements before deploying to any environment with real users or data. Use at your own risk.
